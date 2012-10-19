@@ -1,0 +1,24 @@
+body {
+    overflow:hidden;
+    background: #C6E2EE url(/images/colonel32.png) 2px 2px no-repeat;
+    font-family: Tahoma;
+    font-weight: bold;
+    padding: 0 0 0 5px;
+    word-wrap: break-word;
+}
+body.failure {
+    background: #990000;
+}
+body.failure.dev {
+    background: #ffd700;
+}
+a {
+    color: #F60;
+}
+.box {
+    overflow: auto;
+    margin: 0 0 0 26px;
+}
+#time {
+  font-size: 6px;
+}
