@@ -1,15 +1,16 @@
 {
+   "manifest_version": 2,
+   "name": "JenkinsさんからWebsocketを受け取るやつ2",
+   "version": "1.2",
+   "description": "Jenkinsさんからの通知を受け取ります",
    "background": {
        "page": "html/background.html"
    },
-   "description": "Jenkinsさんからの通知を受け取ります",
    "icons": {
-      "128": "images/colonel110.png",
-      "16": "images/colonel32.png",
-      "48": "images/colonel32.png"
+      "128": "img/colonel110.png",
+      "16": "img/colonel32.png",
+      "48": "img/colonel32.png"
    },
-   "name": "JenkinsさんからWebsocketを受け取るやつ",
-   "permissions": [ "notifications", "background" ],
-   "version": "1.1",
-   "manifest_version": 2
+   "options_page": "html/options.html",
+   "permissions": [ "notifications", "background" ]
 }

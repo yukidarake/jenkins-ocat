@@ -1,0 +1,19 @@
+h1 {
+  font-size: 1em;
+}
+button {
+  width: 100%;
+}
+#main {
+  width: 440px;
+  color: #333333;
+}
+#jenkins_url, #websocket_url {
+  width: 100%;
+}
+.inputs {
+  width: 50%;
+}
+.buttons {
+  text-align: right;
+}

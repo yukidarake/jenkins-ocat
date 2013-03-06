@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JenkinsさんからWebsocketを受け取るやつ2</title>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/options.css" type="text/css" media="all">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/options.js"></script>
+  </head>
+  <body>
+    <div id='main'>
+      <header>
+        <h1>設定</h1>
+      </header>
+      <div class='content'>
+          <div>
+            <label>JenkinsのURL</label>
+            <input name="jenkins_url" id="jenkins_url" class='inputs' placeholder="http://localhost:8080/" />
+          </div>
+          <div>
+            <label>Jenkins Websocket Notifier用のURL</label>
+            <input name="websocket_url" id="websocket_url" class='inputs' placeholder="ws://localhost:8081/jenkins" />
+          </div>
+          <div class="buttons">
+            <button id="save">保存</button>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
