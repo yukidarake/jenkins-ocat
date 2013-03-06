@@ -4,12 +4,16 @@
    "version": "1.2",
    "description": "Jenkinsさんからの通知を受け取ります",
    "background": {
-       "page": "html/background.html"
+       "scripts": [
+            "js/jquery.min.js",
+            "js/notification.js",
+            "js/main.js"
+       ]
    },
    "icons": {
-      "128": "img/colonel110.png",
-      "16": "img/colonel32.png",
-      "48": "img/colonel32.png"
+      "128": "img/jenkins.png",
+      "16": "img/jenkins.png",
+      "48": "img/jenkins.png"
    },
    "options_page": "html/options.html",
    "permissions": [ "notifications", "background" ]
