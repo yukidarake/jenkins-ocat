@@ -21,6 +21,18 @@
             <label>Jenkins Websocket Notifier用のURL</label>
             <input name="websocket_url" id="websocket_url" class='inputs' placeholder="ws://localhost:8081/jenkins" />
           </div>
+          <div>
+            <label>成功時の通知秒数(空の場合はずっと表示)</label>
+            <input type=number name="success_noti_sec" id="success_noti_sec" class='inputs' placeholder="5" />
+          </div>
+          <div>
+            <label>失敗時の通知秒数(空の場合はずっと表示)</label>
+            <input type=number name="failure_noti_sec" id="failure_noti_sec" class='inputs' placeholder="" />
+          </div>
+          <div>
+			  <label>Job名を正規表現で指定</label><br/>
+            <input name="job_regexp" id="job_regexp" class='inputs' placeholder="^product" />
+          </div>
           <div class="buttons">
             <button id="save">保存</button>
           </div>
