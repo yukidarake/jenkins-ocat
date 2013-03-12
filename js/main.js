@@ -32,16 +32,17 @@ function createWs() {
             if (job.result !== 'SUCCESS') {
                 ctx.ok = false;
                 ctx.message = 'NG';
-				if (successNotiSec) {
-                	notification.open(ctx, 1000 * successNotiSec);
+				if (failureNotiSec) {
+                	notification.open(ctx, 1000 * failureNotiSec);
 				} else {
                 	notification.open(ctx);
 				}
             } else {
                 ctx.ok = true;
                 ctx.message = 'OK';
-    			if (failureNotiSec) {
-                	notification.open(ctx, 1000 * failureNotiSec);
+    			
+				if (successNotiSec) {
+                	notification.open(ctx, 1000 * successNotiSec);
 				} else {
                 	notification.open(ctx);
 				}
