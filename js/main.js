@@ -5,7 +5,7 @@ function createWs() {
     var websocketUrl = localStorage.websocket_url;
     var successNotiSec = localStorage.success_noti_sec;
     var failureNotiSec = localStorage.websocket_url;
-    var jobRegexp = localStorage.job_regexp;
+    var jobRegExp = localStorage.job_regexp;
 
     if (!jenkinsUrl || !websocketUrl) {
         alert('設定画面でURLを指定してください！');
@@ -27,7 +27,7 @@ function createWs() {
                         .toISOString().replace('T', ' ').replace(/\..+$/, ''),
             };
 
-			if (jobRegex && !(new RegExp(jobRegexp).test(job.project))) {
+			if (jobRegExp && !(new RegExp(jobRegExp).test(job.project))) {
 				return;
 			}
             if (job.result !== 'SUCCESS') {
