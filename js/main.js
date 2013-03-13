@@ -22,11 +22,12 @@ function createWs() {
                 url: jenkinsUrl + '/job/'
                    + job.project + '/' + job.number + '/',
                 project: job.project,
+                isDev:  job.project.indexOf('dev.') >= 0,
                 time: new Date(message.timeStamp + 1000 * 60 * 60 * 9)
                         .toISOString().replace('T', ' ').replace(/\..+$/, ''),
             };
 
-			if (!job.project.match(jobRegexp)) {
+			if (jobRegex && !(new RegExp(jobRegexp).test(job.project))) {
 				return;
 			}
             if (job.result !== 'SUCCESS') {
