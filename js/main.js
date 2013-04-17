@@ -1,6 +1,7 @@
 var notification = new Notification('html/notification.html', 1000 * 60 * 5);
+var ws;
 
-function createWs() {
+function connect() {
     var jenkinsUrl = localStorage.jenkins_url;
     var websocketUrl = localStorage.websocket_url;
     var successNotiSec = localStorage.success_noti_sec;
@@ -12,7 +13,7 @@ function createWs() {
         return;
     }
 
-    var ws = new WebSocket(websocketUrl);
+    ws = new WebSocket(websocketUrl);
 
     ws.onmessage = function(message) {
         try {
@@ -27,26 +28,26 @@ function createWs() {
                         .toISOString().replace('T', ' ').replace(/\..+$/, ''),
             };
 
-			if (jobRegExp && !(new RegExp(jobRegExp).test(job.project))) {
-				return;
-			}
+            if (jobRegExp && !(new RegExp(jobRegExp).test(job.project))) {
+                return;
+            }
             if (job.result !== 'SUCCESS') {
                 ctx.ok = false;
                 ctx.message = 'NG';
-				if (failureNotiSec) {
-                	notification.open(ctx, 1000 * failureNotiSec);
-				} else {
-                	notification.open(ctx);
-				}
+                if (failureNotiSec) {
+                    notification.open(ctx, 1000 * failureNotiSec);
+                } else {
+                    notification.open(ctx);
+                }
             } else {
                 ctx.ok = true;
                 ctx.message = 'OK';
-    			
-				if (successNotiSec) {
-                	notification.open(ctx, 1000 * successNotiSec);
-				} else {
-                	notification.open(ctx);
-				}
+
+                if (successNotiSec) {
+                    notification.open(ctx, 1000 * successNotiSec);
+                } else {
+                    notification.open(ctx);
+                }
             }
         } catch(e) {
             alert(e);
@@ -55,19 +56,47 @@ function createWs() {
 
     ws.onerror = function(err) {
         console.log(err);
+
+        try {
+           ws.close();
+        } catch(e) {
+            ws = connect();
+        }
+    };
+
+    ws.onopen = function() {
+        (function heartbeat() {
+            setTimeout(function() {
+                ws.send('');
+                console.log('heartbeat');
+                heartbeat();
+            }, 30000);
+        })();
     };
 
     ws.onclose = function() {
         console.log('reconnect!');
         setTimeout(function() {
-            ws = createWs();
+            ws = connect();
         }, 30000);
     };
-
-    return ws;
 }
 
-var ws = createWs();
+connect();
+
+//現在時刻と前回の時刻を1分毎に比較して、15秒以上秒以上差があったら再接続する。
+(function check() {
+    var reload = 60000;
+    var before = new Date();
+    setTimeout(function(){
+        var current = new Date();
+        if((current - before) > (reload + 15000)){
+            connect();// 再接続
+        }
+        before = current;
+        check();
+    }, reload);
+})();
 
 // notification.html
 chrome.extension.onRequest.addListener(function(message, sender, sendResponse){
