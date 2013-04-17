@@ -60,24 +60,15 @@ function connect() {
         try {
            ws.close();
         } catch(e) {
-            ws = connect();
+           connect();
         }
-    };
-
-    ws.onopen = function() {
-        (function heartbeat() {
-            setTimeout(function() {
-                ws.send('');
-                console.log('heartbeat');
-                heartbeat();
-            }, 30000);
-        })();
     };
 
     ws.onclose = function() {
         console.log('reconnect!');
+
         setTimeout(function() {
-            ws = connect();
+            connect();
         }, 30000);
     };
 }
