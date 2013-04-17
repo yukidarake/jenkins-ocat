@@ -13,12 +13,17 @@ function connect() {
         return;
     }
 
+    try {
+        ws && ws.close();
+    } catch(e) {
+        console.log(e);
+    }
+
     ws = new WebSocket(websocketUrl);
 
     ws.onmessage = function(message) {
         try {
             var job = JSON.parse(message.data);
-
             var ctx = {
                 url: jenkinsUrl + '/job/'
                    + job.project + '/' + job.number + '/',
@@ -31,6 +36,7 @@ function connect() {
             if (jobRegExp && !(new RegExp(jobRegExp).test(job.project))) {
                 return;
             }
+
             if (job.result !== 'SUCCESS') {
                 ctx.ok = false;
                 ctx.message = 'NG';
@@ -56,20 +62,6 @@ function connect() {
 
     ws.onerror = function(err) {
         console.log(err);
-
-        try {
-           ws.close();
-        } catch(e) {
-           connect();
-        }
-    };
-
-    ws.onclose = function() {
-        console.log('reconnect!');
-
-        setTimeout(function() {
-            connect();
-        }, 30000);
     };
 }
 
@@ -77,16 +69,20 @@ connect();
 
 //現在時刻と前回の時刻を1分毎に比較して、15秒以上秒以上差があったら再接続する。
 (function check() {
-    var reload = 60000;
-    var before = new Date();
+    var interval = 60000;
+    var before = Date.now();
     setTimeout(function(){
-        var current = new Date();
-        if((current - before) > (reload + 15000)){
-            connect();// 再接続
+        if (!ws) {
+            connect();
+        } else {
+            var current = Date.now();
+            if ((current - before) > (interval + 15000)){
+                connect();// 再接続
+            }
+            before = current;
         }
-        before = current;
         check();
-    }, reload);
+    }, interval);
 })();
 
 // notification.html
