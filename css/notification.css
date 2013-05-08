@@ -1,24 +1,26 @@
 body {
-    overflow:hidden;
-    background: #C6E2EE url(/img/jenkins32.png) 2px 2px no-repeat;
+    overflow: hidden;
+    background: #C6E2EE url(/img/icon.png) 2px 2px no-repeat;
     font-family: Tahoma;
     font-weight: bold;
-    padding: 0 0 0 5px;
+    padding: 0;
     word-wrap: break-word;
 }
 body.failure {
-    background: #990000;
+    background-color: #990000;
+    background-image: url(/img/icon-failure.png);
 }
 body.failure.dev {
-    background: #ffd700;
+    background-color: #ffd700;
+    background-image: url(/img/icon-failure.png);
 }
 a {
-    color: #F60;
+    color: #FF6600;
 }
 .box {
     overflow: auto;
-    margin: 0 0 0 26px;
+    margin: 0 0 0 48px;
 }
 #time {
-  font-size: 6px;
+  font-size: 9px;
 }
