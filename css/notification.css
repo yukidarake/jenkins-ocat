@@ -19,7 +19,7 @@ a {
 }
 .box {
     overflow: auto;
-    margin: 0 0 0 48px;
+    margin: 2px 0 0 48px;
 }
 #time {
   font-size: 9px;
