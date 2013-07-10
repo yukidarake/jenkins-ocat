@@ -1,0 +1,30 @@
+{
+  "options_title": {
+    "message": "設定",
+    "description": "設定"
+  },
+  "jenkinsUrlLabel": {
+    "message": "JenkinsのURL",
+    "description": "JenkinsのURL"
+  },
+  "websocketUrlLabel": {
+    "message": "Jenkins Websocket NotifierのURL",
+    "description": "Jenkins Websocket NotifierのURL"
+  },
+  "successNotiSecLabel": {
+    "message": "成功時の通知秒数(空の場合はずっと表示)",
+    "description": "成功時の通知秒数(空の場合はずっと表示)"
+  },
+  "failureNotiSecLabel": {
+    "message": "失敗時の通知秒数(空の場合はずっと表示)",
+    "description": "失敗時の通知秒数(空の場合はずっと表示)"
+  },
+  "jobRegexpLabel": {
+    "message": "Job名を正規表現で指定",
+    "description": "Job名を正規表現で指定"
+  },
+  "saveButton": {
+    "message": "保存",
+    "description": "保存"
+  }
+}

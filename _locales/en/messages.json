@@ -1,0 +1,30 @@
+{
+  "options_title": {
+    "message": "options",
+    "description": "options"
+  },
+  "jenkinsUrlLabel": {
+    "message": "Jenkins URL",
+    "description": "Jenkins URL"
+  },
+  "websocketUrlLabel": {
+    "message": "Jenkins Websocket Notifier URL",
+    "description": "Jenkins Websocket Notifier URL"
+  },
+  "successNotiSecLabel": {
+    "message": "Second of success notification",
+    "description": "Second of success notification"
+  },
+  "failureNotiSecLabel": {
+    "message": "Second of failure notification",
+    "description": "Second of failure notification"
+  },
+  "jobRegexpLabel": {
+    "message": "Define job name as reqular expression",
+    "description": "Define job name as regular expression"
+  },
+  "saveButton": {
+    "message": "save",
+    "description": "save"
+  }
+}
