@@ -1,7 +1,7 @@
 {
    "manifest_version": 2,
    "name": "JenkinsさんからWebsocketを受け取るやつ2",
-   "version": "1.2.1",
+   "version": "1.2.2",
    "description": "Jenkinsさんからの通知を受け取ります",
    "background": {
        "scripts": [
@@ -16,5 +16,13 @@
       "48": "img/yusakins.png"
    },
    "options_page": "html/options.html",
-   "permissions": [ "notifications", "background" ]
+   "permissions": [
+        "notifications",
+        "background"
+   ],
+   "web_accessible_resources": [
+      "img/icon.png",
+      "img/icon-failure.png"
+   ]
 }
+

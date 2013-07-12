@@ -1,6 +1,9 @@
 (function() {
-    var notification = new Notification('html/notification.html', 1000 * 60 * 5);
-    var checkInterval = 60000;
+    var DEFAULT_AUTO_CLOSE_TIME = 1000 * 60 * 5;
+    var CHECK_INTERVAL = 60000;
+    var notification = new Notification({
+        autoCloseTime: DEFAULT_AUTO_CLOSE_TIME
+    });
     var lastCheckedAt = Date.now();
     var ws;
 
@@ -78,13 +81,13 @@
     (function check() {
         setTimeout(function(){
             var now = Date.now();
-            if ((now - lastCheckedAt) > (checkInterval + 15000)){
+            if ((now - lastCheckedAt) > (CHECK_INTERVAL + 15000)){
                 console.log('reconnect!');
                 connect();// 再接続
             }
             lastCheckedAt = now;
             check();
-        }, checkInterval);
+        }, CHECK_INTERVAL);
     })();
 
     // notification.html
