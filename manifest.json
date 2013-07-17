@@ -1,7 +1,7 @@
 {
    "manifest_version": 2,
    "name": "JenkinsさんからWebsocketを受け取るやつ2",
-   "version": "1.2.2",
+   "version": "1.2.3",
    "description": "Jenkinsさんからの通知を受け取ります",
    "background": {
        "scripts": [
@@ -23,6 +23,7 @@
    "web_accessible_resources": [
       "img/icon.png",
       "img/icon-failure.png"
-   ]
+   ],
+   "default_locale": "en"
 }
 
