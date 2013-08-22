@@ -1,0 +1,19 @@
+{
+    "passfail": false,
+    "maxerr": 100,
+    "browser": true,
+    "jquery": true,
+    "devel": true, 
+    "globals": {
+        "chrome": false
+    },
+    "expr": true, 
+    "undef": true,
+    "laxcomma"      : true,
+    "unused"        : "vars",
+    "maxparams"     : 5,
+    "maxdepth"      : 6,
+    "maxstatements" : 20,
+    "maxcomplexity" : 10,
+    "maxlen"        : 170
+}

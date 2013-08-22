@@ -1,77 +1,44 @@
+var app = app || {};
+
 (function() {
-    var DEFAULT_AUTO_CLOSE_TIME = 1000 * 60 * 5;
+    if (!chrome.notifications) {
+        alert('this version is not supported!');
+        return;
+    }
+
     var CHECK_INTERVAL = 60000;
-    var notification = new Notification({
-        autoCloseTime: DEFAULT_AUTO_CLOSE_TIME
-    });
     var lastCheckedAt = Date.now();
     var ws;
 
     function connect() {
-        var jenkinsUrl = localStorage.jenkins_url;
-        var websocketUrl = localStorage.websocket_url;
-        var successNotiSec = localStorage.success_noti_sec;
-        var failureNotiSec = localStorage.websocket_url;
-        var jobRegExp = localStorage.job_regexp;
-
-        if (!jenkinsUrl || !websocketUrl) {
-            alert('設定画面でURLを指定してください！');
-            return;
-        }
+        var config = app.config;
 
         try {
             ws && ws.close();
         } catch(e) {
-            console.log(e);
+            app.debug(e);
         }
 
-        ws = new WebSocket(websocketUrl);
+        ws = new WebSocket(config.websocketUrl);
 
         ws.onmessage = function(message) {
-            try {
-                var job = JSON.parse(message.data);
-                var ctx = {
-                    url: jenkinsUrl + '/job/'
-                    + job.project + '/' + job.number + '/',
-                    project: job.project,
-                    isDev:  job.project.indexOf('dev.') >= 0,
-                    time: new Date(message.timeStamp + 1000 * 60 * 60 * 9)
-                            .toISOString().replace('T', ' ').replace(/\..+$/, ''),
-                };
+            var result = new app.Result(app.config);
 
-                if (jobRegExp && !(new RegExp(jobRegExp).test(job.project))) {
-                    return;
-                }
+            result.parse(message);
 
-                if (job.result !== 'SUCCESS') {
-                    ctx.ok = false;
-                    ctx.message = 'NG';
-                    if (failureNotiSec) {
-                        notification.open(ctx, 1000 * failureNotiSec);
-                    } else {
-                        notification.open(ctx);
-                    }
-                } else {
-                    ctx.ok = true;
-                    ctx.message = 'OK';
-
-                    if (successNotiSec) {
-                        notification.open(ctx, 1000 * successNotiSec);
-                    } else {
-                        notification.open(ctx);
-                    }
-                }
-            } catch(e) {
-                alert(e);
+            if (!result.isTarget()) {
+                return;
             }
+
+            new app.Notification(app.config).show(result);
         };
 
         ws.onerror = function(err) {
-            console.log(err);
+            app.debug(err);
         };
 
         ws.onclose = function(err) {
-            console.log('close!');
+            app.debug('close!');
         };
     }
 
@@ -82,17 +49,12 @@
         setTimeout(function(){
             var now = Date.now();
             if ((now - lastCheckedAt) > (CHECK_INTERVAL + 15000)){
-                console.log('reconnect!');
+                app.debug('reconnect!');
                 connect();// 再接続
             }
             lastCheckedAt = now;
             check();
         }, CHECK_INTERVAL);
     })();
-
-    // notification.html
-    chrome.extension.onRequest.addListener(function(message, sender, sendResponse){
-        sendResponse(notification.getItem(message.id));
-    });
 })();
 
